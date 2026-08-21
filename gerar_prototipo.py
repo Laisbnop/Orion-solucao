@@ -31,7 +31,7 @@ from PIL import Image
 # ==================================================================
 # CONFIGURAÇÃO — mexam aqui
 # ==================================================================
-PASTA_ENTRADA = "."                # pasta com os PNGs de índice
+PASTA_ENTRADA = "/Users/lais/Desktop/projeto-orion-cygnia/sentinel-21-07"                # pasta com os PNGs de índice
 ARQUIVO_SAIDA = "prototipo.html"   # nome do HTML gerado
 ESCALA_PADRAO = "0_100"            # escala preferida por índice
 CELL_SIZE = 15
@@ -300,6 +300,7 @@ footer p{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--
     <div class="meta-row">
       <span class="tag">__QTD_INDICES__ índices disponíveis</span>
       <span class="tag">Python (Pillow) + HTML/CSS/JS</span>
+      <a href="mapa.html" style="font-family:'IBM Plex Mono', monospace; font-size:11.5px; padding:6px 12px; border:1px solid var(--green); border-radius:100px; color:var(--green); text-decoration:none;">Ver no mapa real →</a>
     </div>
     <div class="notice">
       <b>Isso é um protótipo.</b> A conversão de cor → valor de índice é uma
