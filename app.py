@@ -32,6 +32,21 @@ PASTA_TEMPORARIA = Path("uploads_temp")
 PASTA_TEMPORARIA.mkdir(exist_ok=True)
 
 
+@app.after_request
+def liberar_cors(resposta):
+    """Sem isso, o navegador bloqueia a chamada quando o HTML é aberto
+    direto como arquivo (file://) tentando falar com o Flask
+    (localhost:5000) — são "origens" diferentes pro navegador, e por
+    padrão ele bloqueia essa comunicação por segurança (CORS).
+
+    Como isso é um protótipo local, liberamos geral (*). Numa versão
+    de produção real, o ideal seria restringir só ao domínio de vocês."""
+    resposta.headers["Access-Control-Allow-Origin"] = "*"
+    resposta.headers["Access-Control-Allow-Methods"] = "GET, POST"
+    resposta.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return resposta
+
+
 @app.route("/")
 def home():
     return "Funcionando! Tente acessar /zonas/arvi (ou outro índice) pra ver o JSON."
