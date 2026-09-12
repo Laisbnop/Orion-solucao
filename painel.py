@@ -16,9 +16,20 @@ def montar_painel(usuario, senha):
         resultado = comparar_aplicacao(registro["dose_prescrita"], registro["dose_aplicada"])
         aplicacoes_com_resultado.append({**registro, **resultado})
 
-    return {"sucesso": True, "papel": login["papel"], "aplicacoes": aplicacoes_com_resultado}
-
+    return {
+        "sucesso": True,
+        "papel": login["papel"],
+        "nome": login["nome"],
+        "fazenda": login["fazenda"],
+        "aplicacoes": aplicacoes_com_resultado,
+    }
 
 painel_produtor = montar_painel("produtor1", "santaluzia123")
+if painel_produtor["fazenda"]:
+    print(f"Bem-vindo, {painel_produtor['nome']} — {painel_produtor['fazenda']}")
+else:
+    print(f"Bem-vindo, {painel_produtor['nome']} (Equipe Orion)")
+for aplicacao in painel_produtor["aplicacoes"]:
+    print(aplicacao["talhao"], aplicacao["desvio_pct"], aplicacao["status"])
 for aplicacao in painel_produtor["aplicacoes"]:
     print(aplicacao["talhao"], aplicacao["desvio_pct"], aplicacao["status"])
