@@ -1,7 +1,7 @@
 from comparacao import comparar_aplicacao
 from dados_exemplo import DADOS_REAIS
 from usuarios import fazer_login, filtrar_dados_por_permissao, USUARIOS
-
+from motivo_clima import motivo_provavel
 def montar_painel(usuario, senha):
     login = fazer_login(usuario, senha)
 
@@ -14,8 +14,9 @@ def montar_painel(usuario, senha):
     aplicacoes_com_resultado = []
     for registro in dados_visiveis:
         resultado = comparar_aplicacao(registro["dose_prescrita"], registro["dose_aplicada"])
+        resultado["motivo"] = motivo_provavel(registro["data"], resultado["status"])
         aplicacoes_com_resultado.append({**registro, **resultado})
-
+        
     return {
         "sucesso": True,
         "papel": login["papel"],
@@ -30,6 +31,4 @@ if painel_produtor["fazenda"]:
 else:
     print(f"Bem-vindo, {painel_produtor['nome']} (Equipe Orion)")
 for aplicacao in painel_produtor["aplicacoes"]:
-    print(aplicacao["talhao"], aplicacao["desvio_pct"], aplicacao["status"])
-for aplicacao in painel_produtor["aplicacoes"]:
-    print(aplicacao["talhao"], aplicacao["desvio_pct"], aplicacao["status"])
+    print(aplicacao["talhao"], aplicacao["desvio_pct"], aplicacao["status"], "-", aplicacao["motivo"]["texto"])
