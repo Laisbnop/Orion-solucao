@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orion - Entrar</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-page">
+        <!--Lado esquerdo - Identidade visual -->
+        <aside class="login-hero">
+            <div class="login-hero__brand">
+                <span class="login-hero__brand-name">ORION</span>
+                <span class="login-hero__brand-tag">Sistema de Monitoramento Arícola</span>
+            </div>
+
+            <div class="login-hero__content">
+                <h1 class="login-hero__headline">
+                    Controle preciso de cada aplicação.<br>
+                    Do campo à análise.
+                </h1>
+
+                <!--Grade de pontos (talhoes) [verde = ok, laranja/vermelho = desvio]-->
+                <div class="talhao-grid" aria-hidden="true">
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                </div>
+            </div>
+        </aside>
+
+        <!--Lado direito - formulario de login-->
+        <main class="login-form-painel">
+            <form class="login-form" id="loginForm" novalidate>
+                <h2 class="login-form__title">Entrar</h2>
+                <p class="login-form__subtitle">Acesse sua conta para continuar</p>
+
+                <div class="field">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" autocomplete="username">
+                </div>
+
+                <div class="field">
+                    <label for="senha">Senha</label>
+                    <div class="field__password-wrapper">
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password">
+                        <button type="button" class="field__toggle" id="toggleSenha">mostrar</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnEntrar">Entrar</button>
+
+                <p class="login-form__error" id="loginError" hidden>
+                    Usuário ou senha inválidos.
+                </p>
+            </form>
+        </main>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

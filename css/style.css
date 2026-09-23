@@ -1,0 +1,228 @@
+/* Remove espaçamentos padrão */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variaveis de cor do projeto */
+:root {
+    /* Cores principais*/
+    --verde-escuro: #0f2a1c;        /* fundo do painel esquerdo / sidebar */
+    --verde-escuro-2: #16351f;      /* variação um pouco mais clara */
+    --verde-brilhante: #22c55e;     /* status "dentro do esperado" */
+    --laranja: #f59e0b;             /* status "abaixo/acima do esperado" */
+    --vermelho: #ef4444;            /* status "alerta" */
+
+    /* Cores neutras */
+    --fundo-claro: #f2f1ec;       /* fundo do painel de conteúdo */
+    --branco: #ffffff;
+    --texto-escuro: #1c1c1c;
+    --texto-cinza: #6b7280;
+    --borda: #d8d6cd;
+
+    /* Tipografia */
+    --fonte-base: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    /* Espaçamentos */
+    --espaco-xs: 8px;
+    --espaco-sm: 16px;
+    --espaco-md: 24px;
+    --espaco-lg: 40px;
+    --espaco-xl: 64px;
+
+    /* Bordas arredondadas */
+    --raio: 8px;
+}
+
+/* Estilos gerais */
+body {
+  font-family: var(--fonte-base);
+  color: var(--texto-escuro);
+  line-height: 1.5;
+}
+
+/* Componentes reutilizávceis */
+
+.btn-primary {
+  width: 100%;
+  padding: 12px var(--espaco-md);
+  background-color: var(--verde-escuro);
+  color: var(--branco);
+  border: none;
+  border-radius: var(--raio);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+ 
+.btn-primary:hover {
+  background-color: var(--verde-escuro-2);
+}
+ 
+.btn-primary:disabled {
+  background-color: #a8b3ac;
+  cursor: not-allowed;
+}
+ 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--espaco-md);
+}
+ 
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texto-escuro);
+}
+ 
+.field input {
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  font-size: 14px;
+  background-color: var(--branco);
+}
+ 
+.field input:focus {
+  outline: none;
+  border-color: var(--verde-escuro);
+  box-shadow: 0 0 0 3px rgba(15, 42, 28, 0.12);
+}
+ 
+.field__password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+ 
+.field__password-wrapper input {
+  flex: 1;
+  padding-right: 70px;
+}
+ 
+.field__toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--texto-cinza);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Bolinhas de status dos talhões */
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+ 
+.dot--green  { background-color: var(--verde-brilhante); }
+.dot--orange { background-color: var(--laranja); }
+.dot--red    { background-color: var(--vermelho); }
+
+/* Tela de login */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Painel esquerdo (verde escuro) */
+.login-hero {
+  flex: 1 1 50%;
+  background-color: var(--verde-escuro);
+  color: var(--branco);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--espaco-lg);
+}
+ 
+.login-hero__brand-name {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+ 
+.login-hero__brand-tag {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
+}
+ 
+.login-hero__content {
+  max-width: 420px;
+}
+ 
+.login-hero__headline {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: var(--espaco-lg);
+}
+ 
+.talhao-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: var(--espaco-sm) var(--espaco-md);
+  max-width: 320px;
+}
+ 
+/* Painel direito (claro, com o formulário) */
+.login-form-painel {
+  flex: 1 1 50%;
+  background-color: var(--fundo-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espaco-lg);
+}
+ 
+.login-form {
+  width: 100%;
+  max-width: 360px;
+}
+ 
+.login-form__title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+ 
+.login-form__subtitle {
+  font-size: 13px;
+  color: var(--texto-cinza);
+  margin-bottom: var(--espaco-lg);
+}
+ 
+.login-form__error {
+  margin-top: var(--espaco-sm);
+  font-size: 13px;
+  color: var(--vermelho);
+}
+
+/* Responsivo */
+@media (max-width: 800px) {
+  .login-page {
+    flex-direction: column;
+  }
+ 
+  .login-hero {
+    padding: var(--espaco-md);
+  }
+ 
+  .login-hero__headline {
+    font-size: 20px;
+  }
+ 
+  .talhao-grid {
+    display: none; /* simplifica a versão mobile */
+  }
+}
