@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orion - Entrar</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===================== TELA 1: LOGIN (igual já estava) ===================== -->
+    <div class="login-page" id="telaLogin">
+        <!--Lado esquerdo - Identidade visual -->
+        <aside class="login-hero">
+            <div class="login-hero__brand">
+                <span class="login-hero__brand-name">ORION</span>
+                <span class="login-hero__brand-tag">Sistema de Monitoramento Arícola</span>
+            </div>
+
+            <div class="login-hero__content">
+                <h1 class="login-hero__headline">
+                    Controle preciso de cada aplicação.<br>
+                    Do campo à análise.
+                </h1>
+
+                <div class="talhao-grid" aria-hidden="true">
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--red"></span>
+
+                    <span class="dot dot--red"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--orange"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                    <span class="dot dot--green"></span>
+                </div>
+            </div>
+        </aside>
+
+        <!--Lado direito - formulario de login-->
+        <main class="login-form-painel">
+            <form class="login-form" id="loginForm" novalidate>
+                <h2 class="login-form__title">Entrar</h2>
+                <p class="login-form__subtitle">Acesse sua conta para continuar</p>
+
+                <div class="field">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" autocomplete="username">
+                </div>
+
+                <div class="field">
+                    <label for="senha">Senha</label>
+                    <div class="field__password-wrapper">
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password">
+                        <button type="button" class="field__toggle" id="toggleSenha">mostrar</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnEntrar">Entrar</button>
+
+                <p class="login-form__error" id="loginError" hidden>
+                    Usuário ou senha inválidos.
+                </p>
+            </form>
+        </main>
+
+    </div>
+
+    <!-- ===================== TELA 2: DASHBOARD (aparece após login) ===================== -->
+    <div class="app" id="telaDashboard" hidden>
+        <aside class="sidebar">
+            <div class="sidebar__brand">
+                <strong>ORION</strong>
+                <small>Conferência de aplicação</small>
+            </div>
+            <div class="sidebar__user">
+                <span class="avatar" id="avatarIniciais">?</span>
+                <div>
+                    <div id="sidebarNome">—</div>
+                    <small id="sidebarPapel">—</small>
+                </div>
+            </div>
+            <nav>
+                <button class="ativo">Talhões</button>
+            </nav>
+            <button id="btnSair" style="margin-top:auto;">Sair</button>
+        </aside>
+
+        <main class="conteudo">
+            <div class="page-head">
+                <div>
+                    <h1 id="tituloPagina">Aplicações</h1>
+                    <p id="subtituloPagina">Carregando...</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <span>Talhões</span>
+                    <strong id="statTotal">—</strong>
+                </div>
+                <div class="stat">
+                    <span>Dentro do esperado</span>
+                    <strong class="txt-green" id="statOk">—</strong>
+                </div>
+                <div class="stat">
+                    <span>Fora do esperado</span>
+                    <strong class="txt-orange" id="statAtencao">—</strong>
+                </div>
+            </div>
+
+            <h2>Visão geral</h2>
+            <div class="stats" style="grid-template-columns: 1fr 1fr;">
+                <div class="stat" style="align-items:center;">
+                    <span>Talhões dentro vs fora do esperado</span>
+                    <div id="graficoRosca"></div>
+                </div>
+                <div class="stat">
+                    <span>Desvio por talhão</span>
+                    <div id="graficoBarras"></div>
+                </div>
+            </div>
+
+            <h2>Aplicações</h2>
+            <div style="overflow-x:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Talhão</th>
+                        <th id="thProdutor" hidden>Produtor</th>
+                        <th>Data</th>
+                        <th>Prescrito</th>
+                        <th>Aplicado</th>
+                        <th>Desvio</th>
+                        <th>Status</th>
+                        <th>Motivo provável</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabela"></tbody>
+            </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
