@@ -1,10 +1,23 @@
-# CONFIGURAÇÃO
-CHUVA_RELEVANTE_MM = 10  # a partir de quantos mm a chuva "conta" como motivo
-# DADO FICTÍCIO — clima por data (mm de chuva, temperatura média)
-# Mesma estrutura do arquivo real fornecido pela empresa parceira
-# (chuva em mm, temperatura em °C), só que com valores inventados
-# para cobrir as 20 datas de aplicação
- 
+"""
+ a lógica tem duas camadas:
+  1. Causa mecânica (sempre sugerida, quando há desvio) — o texto
+     muda dependendo se o desvio foi pra menos ou pra mais
+  2. Fator climático adicional (só aparece se, além do desvio,
+     choveu bastante naquele dia) — não substitui a causa mecânica,
+     só soma a ela
+
+REGRA:
+  - status == "Dentro do esperado" -> não avalia nada
+  - status == "Abaixo do esperado" -> causa mecânica de subaplicação
+  - status == "Acima do esperado"  -> causa mecânica de superaplicação
+  - em qualquer um dos dois casos acima, se chuva_mm >= 10 no dia,
+    soma um fator climático adicional ao texto
+==================================================================
+"""
+
+
+CHUVA_RELEVANTE_MM = 10
+
 CLIMA_FICTICIO = {
     "2026-08-12": {"chuva_mm": 0.0,  "temp_media": 24.1},
     "2026-08-13": {"chuva_mm": 0.0,  "temp_media": 25.3},
@@ -27,44 +40,50 @@ CLIMA_FICTICIO = {
     "2026-08-30": {"chuva_mm": 0.0,  "temp_media": 25.0},
     "2026-08-31": {"chuva_mm": 31.8, "temp_media": 20.6},
 }
+
+# Textos de causa mecânica, variando conforme a direção do desvio
+CAUSA_MECANICA_ABAIXO = "Possível causa mecânica — verificar entupimento ou desgaste do bico"
+CAUSA_MECANICA_ACIMA = "Possível causa mecânica — verificar calibração da válvula ou pressão da bomba"
+
+
 def motivo_provavel(data, status):
-    """Função principal: recebe a data da aplicação (texto, formato
-    "AAAA-MM-DD") e o status do desvio (texto vindo do comparacao.py
-    de vocês: "Dentro do esperado", "Abaixo do esperado" ou "Acima
-    do esperado"), e devolve um dicionário com o motivo provável.
- 
-    Exemplo de uso:
-        from comparacao import comparar_aplicacao
-        from motivo_clima import motivo_provavel
- 
-        resultado = comparar_aplicacao(200, 178)
-        motivo = motivo_provavel("2026-08-29", resultado["status"])
-    """
+    """Função principal: recebe a data da aplicação e o status do
+    desvio (vindo do comparacao.py), e devolve um dicionário com o
+    motivo provável — priorizando causa mecânica, com o clima como
+    fator adicional quando relevante."""
 
     if status == "Dentro do esperado":
         return {"texto": "—", "tipo": "neutro"}
+
+    # 1. Causa mecânica, sempre sugerida quando há desvio
+    if status == "Abaixo do esperado":
+        texto = CAUSA_MECANICA_ABAIXO
+    else:  # "Acima do esperado"
+        texto = CAUSA_MECANICA_ACIMA
+
+    # 2. Fator climático adicional, só quando choveu bastante naquele dia
     clima_do_dia = CLIMA_FICTICIO.get(data)
-    if clima_do_dia is None:
-        return {"texto": "Sem dado climático disponível", "tipo": "sem_dado"}
-    if clima_do_dia["chuva_mm"] >= CHUVA_RELEVANTE_MM:
-        return {
-            "texto": f"Possível chuva no dia ({clima_do_dia['chuva_mm']}mm)",
-            "tipo": "chuva",
-        }
-    return {"texto": "Sem causa climática aparente", "tipo": "sem_causa"}
- 
-# TESTES 
+    if clima_do_dia is not None and clima_do_dia["chuva_mm"] >= CHUVA_RELEVANTE_MM:
+        texto += f". Fator adicional: chuva de {clima_do_dia['chuva_mm']}mm registrada no dia"
+
+    return {"texto": texto, "tipo": "mecanica"}
+
+
+# ==================================================================
+# TESTES
+# ==================================================================
+
 if __name__ == "__main__":
     casos_de_teste = [
-        {"talhao": "T02", "data": "2026-08-13", "status": "Dentro do esperado"},  # sem motivo
-        {"talhao": "T07", "data": "2026-08-18", "status": "Abaixo do esperado"},  # choveu -> motivo: chuva
-        {"talhao": "T01", "data": "2026-08-12", "status": "Abaixo do esperado"},  # sem chuva -> sem causa
-        {"talhao": "T99", "data": "2026-09-15", "status": "Acima do esperado"},   # data sem clima -> sem dado
+        {"talhao": "T02", "data": "2026-08-13", "status": "Dentro do esperado"},   # sem desvio -> sem motivo
+        {"talhao": "T01", "data": "2026-08-12", "status": "Abaixo do esperado"},   # abaixo, sem chuva -> só mecânica
+        {"talhao": "T07", "data": "2026-08-18", "status": "Abaixo do esperado"},   # abaixo, com chuva -> mecânica + chuva
+        {"talhao": "T19", "data": "2026-08-30", "status": "Acima do esperado"},    # acima, sem chuva -> só mecânica
+        {"talhao": "T20", "data": "2026-08-31", "status": "Acima do esperado"},    # acima, com chuva -> mecânica + chuva
     ]
- 
-    print(f"{'Talhão':<8}{'Data':<14}{'Status':<20}{'Motivo'}")
-    print("-" * 75)
+
+    print(f"{'Talhão':<8}{'Status':<20}{'Motivo'}")
+    print("-" * 100)
     for caso in casos_de_teste:
         motivo = motivo_provavel(caso["data"], caso["status"])
-        print(f"{caso['talhao']:<8}{caso['data']:<14}{caso['status']:<20}{motivo['texto']}")
- 
+        print(f"{caso['talhao']:<8}{caso['status']:<20}{motivo['texto']}")
