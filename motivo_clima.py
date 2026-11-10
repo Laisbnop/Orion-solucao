@@ -1,17 +1,27 @@
 """
- a lógica tem duas camadas:
+==================================================================
+MOTIVO_CLIMA.PY — Motivo provável do desvio (v2)
+Fábrica de Projetos | Grupo Orion x CygniAG
+==================================================================
+
+LÓGICA:
+Como a Orion trabalha com equipamentos de precisão (bicos,
+válvulas, aplicadores), a causa mais provável de um desvio é
+MECÂNICA, não climática. Por isso:
+
   1. Causa mecânica (sempre sugerida, quando há desvio) — o texto
      muda dependendo se o desvio foi pra menos ou pra mais
   2. Fator climático adicional (só aparece se, além do desvio,
      choveu bastante naquele dia) — não substitui a causa mecânica,
      só soma a ela
 
-REGRA:
-  - status == "Dentro do esperado" -> não avalia nada
-  - status == "Abaixo do esperado" -> causa mecânica de subaplicação
-  - status == "Acima do esperado"  -> causa mecânica de superaplicação
-  - em qualquer um dos dois casos acima, se chuva_mm >= 10 no dia,
-    soma um fator climático adicional ao texto
+ATENÇÃO — compatibilidade com o comparacao.py do grupo:
+O texto exato que vem de classificar_status() quando o desvio está
+dentro da margem é "Dentro o esperado" (sem o "d" de "do" — é
+assim que está escrito no comparacao.py de vocês). Este arquivo usa
+esse texto EXATO abaixo. Se o comparacao.py for corrigido um dia
+para "Dentro do esperado", lembrem de ajustar a linha correspondente
+aqui também.
 ==================================================================
 """
 
@@ -41,27 +51,23 @@ CLIMA_FICTICIO = {
     "2026-08-31": {"chuva_mm": 31.8, "temp_media": 20.6},
 }
 
-# Textos de causa mecânica, variando conforme a direção do desvio
 CAUSA_MECANICA_ABAIXO = "Possível causa mecânica — verificar entupimento ou desgaste do bico"
 CAUSA_MECANICA_ACIMA = "Possível causa mecânica — verificar calibração da válvula ou pressão da bomba"
 
 
 def motivo_provavel(data, status):
-    """Função principal: recebe a data da aplicação e o status do
-    desvio (vindo do comparacao.py), e devolve um dicionário com o
-    motivo provável — priorizando causa mecânica, com o clima como
-    fator adicional quando relevante."""
+    """Recebe a data da aplicação e o status do desvio (texto vindo
+    de classificar_status() em comparacao.py) e devolve o motivo
+    provável, priorizando causa mecânica."""
 
-    if status == "Dentro do esperado":
+    if status == "Dentro o esperado":  # texto exato usado no comparacao.py do grupo
         return {"texto": "—", "tipo": "neutro"}
 
-    # 1. Causa mecânica, sempre sugerida quando há desvio
     if status == "Abaixo do esperado":
         texto = CAUSA_MECANICA_ABAIXO
     else:  # "Acima do esperado"
         texto = CAUSA_MECANICA_ACIMA
 
-    # 2. Fator climático adicional, só quando choveu bastante naquele dia
     clima_do_dia = CLIMA_FICTICIO.get(data)
     if clima_do_dia is not None and clima_do_dia["chuva_mm"] >= CHUVA_RELEVANTE_MM:
         texto += f". Fator adicional: chuva de {clima_do_dia['chuva_mm']}mm registrada no dia"
@@ -75,11 +81,11 @@ def motivo_provavel(data, status):
 
 if __name__ == "__main__":
     casos_de_teste = [
-        {"talhao": "T02", "data": "2026-08-13", "status": "Dentro do esperado"},   # sem desvio -> sem motivo
-        {"talhao": "T01", "data": "2026-08-12", "status": "Abaixo do esperado"},   # abaixo, sem chuva -> só mecânica
-        {"talhao": "T07", "data": "2026-08-18", "status": "Abaixo do esperado"},   # abaixo, com chuva -> mecânica + chuva
-        {"talhao": "T19", "data": "2026-08-30", "status": "Acima do esperado"},    # acima, sem chuva -> só mecânica
-        {"talhao": "T20", "data": "2026-08-31", "status": "Acima do esperado"},    # acima, com chuva -> mecânica + chuva
+        {"talhao": "T02", "data": "2026-08-13", "status": "Dentro o esperado"},
+        {"talhao": "T01", "data": "2026-08-12", "status": "Abaixo do esperado"},
+        {"talhao": "T07", "data": "2026-08-18", "status": "Abaixo do esperado"},
+        {"talhao": "T19", "data": "2026-08-30", "status": "Acima do esperado"},
+        {"talhao": "T20", "data": "2026-08-31", "status": "Acima do esperado"},
     ]
 
     print(f"{'Talhão':<8}{'Status':<20}{'Motivo'}")
