@@ -1,18 +1,3 @@
-"""
-==================================================================
-DADOS_CLIMA.PY — Histórico climático real, fazenda da Orion
-Fábrica de Projetos | Grupo Orion x CygniAG
-==================================================================
-
-159 dias de dado real, fornecido pela empresa parceira (captura via
-API Meteoblue). Cada dia tem chuva total (mm) e vento médio (km/h).
-
-Usado pela visão "Histórico" do painel, aplicando a mesma função
-de classificacao_climatica.py sobre dado já registrado (em vez de
-previsão).
-==================================================================
-"""
-
 CLIMA_HISTORICO = {
     "2026-03-19": {"chuva_mm": 8.3, "vento_kmh": 3.1},
     "2026-03-20": {"chuva_mm": 0.8, "vento_kmh": 3.2},
