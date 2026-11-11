@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboar</title>
+</head>
+
+<body>
+    
+    <header class="topo">
+        <h1>Orion</h1>
+        <p>Fazenda Santa Luzia - Aplicações de 12/08/2026 a 31/08/2026</p>
+    </header>
+
+    <main>
+
+        <section class="resumo">
+            <div class="cartao">
+                <span class="cartao-numero">20</span>
+                <span class="cartao-texto">talhões aplicados</span>
+            </div>
+            <div class="cartao ok">
+                <span class="cartao-numero">13</span>
+                <span class="cartao-texto">dentro do esperado</span>
+            </div>            
+            <div class="cartao abaixo">
+                <span class="cartao-numero">6</span>
+                <span class="cartao-texto">abaixo do esperado</span>
+            </div>  
+            <div class="cartao acima">
+                <span class="cartao-numero">1</span>
+                <span class="cartao-texto">acima do esperado</span>
+            </div>          
+        </section>
+
+        <p class="aviso">Desvio médio: <strong>9,8%</strong>. Dentro do esperado = desvio de até 10% para mais ou para menos.</p>
+        <section>
+            <h2>Aplocações por talhão</h2>
+            <div class="tabela-caixa">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Talhão</th>
+                            <th>Data</th>
+                            <th>Dose prescrita</th>
+                            <th>Dose aplicada</th>
+                            <th>Aplicada vs. prescrita</th>
+                            <th>Desvio</th>
+                            <th>Status</th>
+                            <th>Motivo provável</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><strong>T01</strong></td>
+                            <td>12/08</td>
+                            <td class="num">150</td>
+                            <td class="num">125</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia abaixo" style="width: 55%"></div></div>
+                            </td>
+                            <td class="num">-16,7%</td>
+                            <td><span class="selo abaixo">Abaixo do esperado</span></td>
+                            <td class="motivo">Possível causa mecânica - verificar entupimento ou desgaste do bico</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T02</strong></td>
+                            <td>13/08</td>
+                            <td class="num">200</td>
+                            <td class="num">200</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 67%"></div></div>
+                            </td>
+                            <td class="num">0,0%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T03</strong></td>
+                            <td>14/08</td>
+                            <td class="num">180</td>
+                            <td class="num">159</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia abaixo" style="width: 59%"></div></div>
+                            </td>
+                            <td class="num">-11,7%</td>
+                            <td><span class="selo abaixo">Abaixo do esperado</span></td>
+                            <td class="motivo">Possível causa mecânica - verificar entupimento ou desgaste do bico</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T04</strong></td>
+                            <td>15/08</td>
+                            <td class="num">150</td>
+                            <td class="num">146</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 65%"></div></div>
+                            </td>
+                            <td class="num">-2,7%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T05</strong></td>
+                            <td>16/08</td>
+                            <td class="num">250</td>
+                            <td class="num">227</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 60.5%"></div></div>
+                            </td>
+                            <td class="num">-9,7%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>T06</strong></td>
+                            <td>17/08</td>
+                            <td class="num">250</td>
+                            <td class="num">238</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 63%"></div></div>
+                            </td>
+                            <td class="num">-4,8%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T07</strong></td>
+                            <td>18/08</td>
+                            <td class="num">150</td>
+                            <td class="num">125</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia abaixo" style="width: 55.6%"></div></div>
+                            </td>
+                            <td class="num">-16,7%</td>
+                            <td><span class="selo abaixo">Abaixo do esperado</span></td>
+                            <td class="motivo">Possivel causa mecânica - verificar entupimento ou desgaste do bico. <strong>Fator adicional: </strong>chuva de 18.7mm registrada no dia.</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T08</strong></td>
+                            <td>19/08</td>
+                            <td class="num">150</td>
+                            <td class="num">131</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia abaixo" style="width: 58%"></div></div>
+                            </td>
+                            <td class="num">-12,7%</td>
+                            <td><span class="selo abaixo">Abaixo do esperado</span></td>
+                            <td class="motivo">Possível causa mecânica - verificar entupimento ou desgaste do bico</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T09</strong></td>
+                            <td>20/08</td>
+                            <td class="num">180</td>
+                            <td class="num">171</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 63%"></div></div>
+                            </td>
+                            <td class="num">-5,0%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T10</strong></td>
+                            <td>21/08</td>
+                            <td class="num">250</td>
+                            <td class="num">225</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 60%"></div></div>
+                            </td>
+                            <td class="num">-10,0%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T11</strong></td>
+                            <td>22/08</td>
+                            <td class="num">250</td>
+                            <td class="num">231</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 62%"></div></div>
+                            </td>
+                            <td class="num">-7,6%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T12</strong></td>
+                            <td>23/08</td>
+                            <td class="num">250</td>
+                            <td class="num">238</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 63.5%"></div></div>
+                            </td>
+                            <td class="num">-4,8%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T13</strong></td>
+                            <td>24/08</td>
+                            <td class="num">180</td>
+                            <td class="num">169</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 63%"></div></div>
+                            </td>
+                            <td class="num">-6,1%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T14</strong></td>
+                            <td>25/08</td>
+                            <td class="num">250</td>
+                            <td class="num">233</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 62%"></div></div>
+                            </td>
+                            <td class="num">-6,8%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T15</strong></td>
+                            <td>21/08</td>
+                            <td class="num">150</td>
+                            <td class="num">149</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 66%"></div></div>
+                            </td>
+                            <td class="num">-0,7%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T16</strong></td>
+                            <td>27/08</td>
+                            <td class="num">180</td>
+                            <td class="num">177</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 65.6%"></div></div>
+                            </td>
+                            <td class="num">-1,7%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T17</strong></td>
+                            <td>28/08</td>
+                            <td class="num">220</td>
+                            <td class="num">205</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 62%"></div></div>
+                            </td>
+                            <td class="num">-6,8%</td>
+                            <td><span class="selo ok">Dentro do esperado</span></td>
+                            <td class="motivo">-</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T18</strong></td>
+                            <td>29/08</td>
+                            <td class="num">200</td>
+                            <td class="num">179</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia ok" style="width: 60%"></div></div>
+                            </td>
+                            <td class="num">-10,5%</td>
+                            <td><span class="selo abaixo">Abaixo do esperado</span></td>
+                            <td class="motivo">Possivel causa mecânica - verificar entupimento ou desgaste do bico. <strong>Fator adicional: </strong>chuva de 12.4mm registrada no dia</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T19</strong></td>
+                            <td>30/08</td>
+                            <td class="num">127</td>
+                            <td class="num">159</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia acima" style="width: 83%"></div></div>
+                            </td>
+                            <td class="num">+25,2%</td>
+                            <td><span class="selo acima">Acima do esperado</span></td>
+                            <td class="motivo">Possível causa mecânica - verificar calibração da válvula ou pressão da bomba. </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>T20</strong></td>
+                            <td>31/08</td>
+                            <td class="num">315</td>
+                            <td class="num">201</td>
+                            <td>
+                                <div class="barra"><div class="barra-cheia abaixo" style="width: 42.5%"></div></div>
+                            </td>
+                            <td class="num">-36,2%</td>
+                            <td><span class="selo abaixo">Abaixo do esperado</span></td>
+                            <td class="motivo">Possível causa mecânica - verificar entupimento ou desgaste do bico. <strong>Fator adicional: </strong>chuva de 31.8mm registrada no dia. </td>
+                        </tr>
+                     
+                    </tbody>
+                </table>
+            </div>
+            <p class="legenda">A barra vai de 0% a 150% da dose prescrita. A linha vertical marca 100% (dose exata). </p>
+        </section>
+
+    </main>
+</body>
+</html>
