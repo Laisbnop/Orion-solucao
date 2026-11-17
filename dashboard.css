@@ -6,12 +6,15 @@
   --linha: #dde2d8;
   --verde: #24472f;
 
-  --ok: #3b8a4e;
-  --ok-fundo: #e3f1e6;
-  --abaixo: #b7791f;
-  --abaixo-fundo: #fbefd5;
-  --acima: #b5432f;
-  --acima-fundo: #f8e1dc;
+  /* Favorável / Moderado / Desfavorável / Sem dado */
+  --favoravel: #3b8a4e;
+  --favoravel-fundo: #e3f1e6;
+  --moderado: #b7791f;
+  --moderado-fundo: #fbefd5;
+  --desfavoravel: #b5432f;
+  --desfavoravel-fundo: #f8e1dc;
+  --semdado: #6b7280;
+  --semdado-fundo: #e8e8e4;
 }
 
 * {
@@ -22,7 +25,7 @@ body {
   margin: 0;
   background: var(--fundo);
   color: var(--texto);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
 }
 
@@ -31,6 +34,11 @@ body {
   background: var(--verde);
   color: #fff;
   padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 .topo h1 {
   margin: 0;
@@ -39,8 +47,30 @@ body {
 .topo p {
   margin: 4px 0 0;
   color: #cfe0d3;
-  font-family: Arial, sans-serif;
   font-size: 0.95rem;
+}
+.topo__usuario {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #cfe0d3;
+}
+.topo__usuario strong {
+  display: block;
+  color: #fff;
+  font-size: 0.95rem;
+}
+.botao-sair {
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  background: none;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.botao-sair:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 main {
@@ -52,6 +82,63 @@ main {
 h2 {
   font-size: 1.25rem;
   margin: 32px 0 12px;
+}
+
+/* tela de login */
+.login-caixa {
+  max-width: 360px;
+  margin: 80px auto;
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  padding: 32px;
+}
+.login-caixa h1 {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  color: var(--verde);
+}
+.login-caixa p {
+  margin: 0 0 24px;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.login-caixa label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.login-caixa input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+.login-caixa button {
+  width: 100%;
+  padding: 11px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.login-caixa button:hover {
+  background: #1a3522;
+}
+.login-caixa button:disabled {
+  background: #a8b3ac;
+  cursor: not-allowed;
+}
+.login-erro {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--desfavoravel);
 }
 
 /* cartões */
@@ -68,9 +155,10 @@ h2 {
   border-radius: 6px;
   padding: 16px 20px;
 }
-.cartao.ok { border-left-color: var(--ok); }
-.cartao.abaixo { border-left-color: var(--abaixo); }
-.cartao.acima { border-left-color: var(--acima); }
+.cartao.favoravel { border-left-color: var(--favoravel); }
+.cartao.moderado { border-left-color: var(--moderado); }
+.cartao.desfavoravel { border-left-color: var(--desfavoravel); }
+.cartao.semdado { border-left-color: var(--semdado); }
 
 .cartao-numero {
   display: block;
@@ -79,13 +167,11 @@ h2 {
   line-height: 1.1;
 }
 .cartao-texto {
-  font-family: Arial, sans-serif;
   font-size: 0.9rem;
   color: var(--texto-suave);
 }
 
 .aviso {
-  font-family: Arial, sans-serif;
   font-size: 0.9rem;
   color: var(--texto-suave);
   margin-top: 16px;
@@ -96,13 +182,12 @@ h2 {
   background: var(--papel);
   border: 1px solid var(--linha);
   border-radius: 6px;
-  overflow-x: auto; /* rolagem no celular */
+  overflow-x: auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-family: Arial, sans-serif;
   font-size: 0.9rem;
 }
 
@@ -125,44 +210,17 @@ tbody tr:hover {
 .num {
   text-align: right;
 }
-th:nth-child(3), th:nth-child(4), th:nth-child(6) {
+th.num {
   text-align: right;
 }
 
 .motivo {
   white-space: normal;
-  min-width: 280px;
+  min-width: 260px;
   color: var(--texto-suave);
 }
 
-/* barra da dose (aplicada x prescrita) */
-.barra {
-  position: relative;
-  width: 160px;
-  height: 12px;
-  background: #e6e9e1;
-  border-radius: 6px;
-}
-.barra-cheia {
-  height: 100%;
-  border-radius: 6px;
-}
-.barra-cheia.ok { background: var(--ok); }
-.barra-cheia.abaixo { background: var(--abaixo); }
-.barra-cheia.acima { background: var(--acima); }
-
-/* risquinho do 100% (100/150 = 66,67%) */
-.barra::after {
-  content: "";
-  position: absolute;
-  left: 66.67%;
-  top: -3px;
-  bottom: -3px;
-  width: 2px;
-  background: var(--texto);
-}
-
-/* status */
+/* selo de classificação */
 .selo {
   display: inline-block;
   padding: 2px 10px;
@@ -170,13 +228,14 @@ th:nth-child(3), th:nth-child(4), th:nth-child(6) {
   font-size: 0.8rem;
   font-weight: bold;
 }
-.selo.ok { background: var(--ok-fundo); color: var(--ok); }
-.selo.abaixo { background: var(--abaixo-fundo); color: var(--abaixo); }
-.selo.acima { background: var(--acima-fundo); color: var(--acima); }
+.selo.favoravel { background: var(--favoravel-fundo); color: var(--favoravel); }
+.selo.moderado { background: var(--moderado-fundo); color: var(--moderado); }
+.selo.desfavoravel { background: var(--desfavoravel-fundo); color: var(--desfavoravel); }
+.selo.semdado { background: var(--semdado-fundo); color: var(--semdado); }
 
-.legenda {
-  font-family: Arial, sans-serif;
-  font-size: 0.8rem;
+.vazio {
+  text-align: center;
+  padding: 40px;
   color: var(--texto-suave);
 }
 
