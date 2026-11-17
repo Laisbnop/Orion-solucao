@@ -82,7 +82,13 @@
     </div>
 
     <script>
-        const API_BASE = "http://127.0.0.1:5000";
+        // Se o dashboard for aberto direto do computador (file://) ou via Flask local
+        // (127.0.0.1/localhost), usa o Flask local. Se for aberto pelo link publicado
+        // no Render, usa o próprio domínio onde o dashboard está sendo servido.
+        const ehLocal = window.location.protocol === "file:"
+            || window.location.hostname === "127.0.0.1"
+            || window.location.hostname === "localhost";
+        const API_BASE = ehLocal ? "http://127.0.0.1:5000" : window.location.origin;
 
         const telaLogin = document.getElementById("tela-login");
         const telaDashboard = document.getElementById("tela-dashboard");

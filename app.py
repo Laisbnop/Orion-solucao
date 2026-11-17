@@ -1,7 +1,8 @@
-from flask import Flask, jsonify, request
+import os
+from flask import Flask, jsonify, request, send_from_directory
 from painel import montar_painel
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=".", static_url_path="")
 
 @app.after_request
 def liberar_cors(resposta):
@@ -12,7 +13,8 @@ def liberar_cors(resposta):
 
 @app.route("/")
 def home():
-    return "Funcionando! Use /login (POST ou GET) com usuario e senha."
+    # Serve o próprio dashboard na raiz, assim o link direto já abre a tela de login.
+    return send_from_directory(".", "dashboard.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -33,4 +35,7 @@ def login():
     return jsonify(resultado)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Em produção (Render), a porta vem da variável de ambiente PORT.
+    # Localmente, continua rodando em 5000 como antes.
+    porta = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=porta, debug=False)
