@@ -177,6 +177,14 @@ h2 {
   margin-top: 16px;
 }
 
+.aviso-ilustrativo {
+  background: var(--moderado-fundo);
+  border: 1px solid var(--moderado);
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: var(--texto);
+}
+
 /* tabela */
 .tabela-caixa {
   background: var(--papel);

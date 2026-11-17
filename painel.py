@@ -2,7 +2,17 @@ from dados_exemplo import DADOS_REAIS
 from dados_clima import CLIMA_HISTORICO
 from usuarios import fazer_login, filtrar_dados_por_permissao, USUARIOS
 from classificacao_climatica import classificar_dia
- 
+from comparacao import comparar_aplicacao
+
+# O status de comparar_aplicacao() vem com um typo histórico do projeto
+# ("Dentro o esperado", sem o "d"). Aqui só corrigimos o TEXTO exibido
+# na tela — a lógica de cálculo em comparacao.py não foi alterada.
+TEXTO_STATUS_EXIBICAO = {
+    "Dentro o esperado": "Dentro do esperado",
+    "Abaixo do esperado": "Abaixo do esperado",
+    "Acima do esperado": "Acima do esperado",
+}
+
 def montar_painel(usuario, senha):
     login = fazer_login(usuario, senha)
  
@@ -21,10 +31,17 @@ def montar_painel(usuario, senha):
         else:
             resultado = classificar_dia(clima_do_dia["chuva_mm"], clima_do_dia["vento_kmh"])
  
+        comparacao = comparar_aplicacao(registro["dose_prescrita"], registro["dose_aplicada"])
+        status_exibicao = TEXTO_STATUS_EXIBICAO.get(comparacao["status"], comparacao["status"])
+
         talhoes_com_resultado.append({
             "talhao": registro["talhao"],
             "produtor": registro["produtor"],
             "data": registro["data"],
+            "dose_prescrita": registro["dose_prescrita"],
+            "dose_aplicada": registro["dose_aplicada"],
+            "desvio_pct": comparacao["desvio_pct"],
+            "status_aplicacao": status_exibicao,
             "chuva_mm": clima_do_dia["chuva_mm"] if clima_do_dia else None,
             "vento_kmh": clima_do_dia["vento_kmh"] if clima_do_dia else None,
             "classificacao": resultado["classificacao"],
