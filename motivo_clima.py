@@ -1,28 +1,12 @@
 
-CHUVA_RELEVANTE_MM = 10
+from dados_clima import CLIMA_HISTORICO
 
-CLIMA_FICTICIO = {
-    "2026-08-12": {"chuva_mm": 0.0,  "temp_media": 24.1},
-    "2026-08-13": {"chuva_mm": 0.0,  "temp_media": 25.3},
-    "2026-08-14": {"chuva_mm": 3.2,  "temp_media": 23.8},
-    "2026-08-15": {"chuva_mm": 0.0,  "temp_media": 26.0},
-    "2026-08-16": {"chuva_mm": 22.5, "temp_media": 21.4},
-    "2026-08-17": {"chuva_mm": 0.0,  "temp_media": 27.1},
-    "2026-08-18": {"chuva_mm": 18.7, "temp_media": 22.0},
-    "2026-08-19": {"chuva_mm": 0.0,  "temp_media": 25.9},
-    "2026-08-20": {"chuva_mm": 0.0,  "temp_media": 26.4},
-    "2026-08-21": {"chuva_mm": 15.3, "temp_media": 22.8},
-    "2026-08-22": {"chuva_mm": 0.0,  "temp_media": 27.5},
-    "2026-08-23": {"chuva_mm": 0.0,  "temp_media": 28.0},
-    "2026-08-24": {"chuva_mm": 4.1,  "temp_media": 24.3},
-    "2026-08-25": {"chuva_mm": 0.0,  "temp_media": 26.7},
-    "2026-08-26": {"chuva_mm": 0.0,  "temp_media": 25.5},
-    "2026-08-27": {"chuva_mm": 0.0,  "temp_media": 26.9},
-    "2026-08-28": {"chuva_mm": 0.0,  "temp_media": 27.2},
-    "2026-08-29": {"chuva_mm": 12.4, "temp_media": 23.1},
-    "2026-08-30": {"chuva_mm": 0.0,  "temp_media": 25.0},
-    "2026-08-31": {"chuva_mm": 31.8, "temp_media": 20.6},
-}
+# Limiares usados aqui para sinalizar clima como fator adicional no motivo do
+# desvio. Propositalmente iguais aos limiares de classificacao_climatica.py,
+# para que "fator adicional" citado aqui bata com a coluna de Classificação
+# climática mostrada na mesma linha do dashboard.
+CHUVA_RELEVANTE_MM = 10
+VENTO_RELEVANTE_KMH = 15
 
 CAUSA_MECANICA_ABAIXO = "Possível causa mecânica — verificar entupimento ou desgaste do bico"
 CAUSA_MECANICA_ACIMA = "Possível causa mecânica — verificar calibração da válvula ou pressão da bomba"
@@ -30,7 +14,7 @@ CAUSA_MECANICA_ACIMA = "Possível causa mecânica — verificar calibração da 
 
 def motivo_provavel(data, status):
 
-    if status == "Dentro o esperado": 
+    if status == "Dentro o esperado":
         return {"texto": "—", "tipo": "neutro"}
 
     if status == "Abaixo do esperado":
@@ -38,9 +22,14 @@ def motivo_provavel(data, status):
     else:
         texto = CAUSA_MECANICA_ACIMA
 
-    clima_do_dia = CLIMA_FICTICIO.get(data)
-    if clima_do_dia is not None and clima_do_dia["chuva_mm"] >= CHUVA_RELEVANTE_MM:
-        texto += f". Fator adicional: chuva de {clima_do_dia['chuva_mm']}mm registrada no dia"
+    # Usa o mesmo histórico de clima real (dados_clima.py) que já alimenta
+    # a classificação climática do dia, em vez de uma base fictícia à parte.
+    clima_do_dia = CLIMA_HISTORICO.get(data)
+    if clima_do_dia is not None:
+        if clima_do_dia["chuva_mm"] >= CHUVA_RELEVANTE_MM:
+            texto += f". Fator adicional: chuva de {clima_do_dia['chuva_mm']}mm registrada no dia"
+        elif clima_do_dia["vento_kmh"] >= VENTO_RELEVANTE_KMH:
+            texto += f". Fator adicional: vento de {clima_do_dia['vento_kmh']}km/h registrado no dia"
 
     return {"texto": texto, "tipo": "mecanica"}
 

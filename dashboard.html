@@ -57,10 +57,12 @@
 
             <p class="aviso" id="aviso-semdado" style="display:none;"></p>
             <p class="aviso aviso-ilustrativo">
-                <strong>Nota:</strong> as colunas de dose prescrita/aplicada e desvio são ilustrativas —
-                a Orion ainda não possui, hoje, uma forma de medir automaticamente quanto de bioinsumo
-                foi de fato aplicado em campo. As colunas de clima (chuva, vento e classificação) são
-                calculadas a partir de dados reais.
+                <strong>Nota:</strong> as colunas de dose prescrita/aplicada, desvio e motivo provável do
+                desvio são ilustrativas — a Orion ainda não possui, hoje, uma forma de medir
+                automaticamente quanto de bioinsumo foi de fato aplicado em campo. Quando o desvio foge
+                do esperado, o motivo provável cruza isso com o clima real do dia (mesma fonte da coluna
+                de Classificação climática) para apontar chuva ou vento forte como possível fator. As
+                colunas de clima (chuva, vento e classificação) são calculadas a partir de dados reais.
             </p>
 
             <section>
@@ -76,6 +78,7 @@
                                 <th class="num">Dose aplicada*</th>
                                 <th class="num">Desvio*</th>
                                 <th>Status aplicação*</th>
+                                <th class="motivo">Motivo provável do desvio*</th>
                                 <th class="num">Chuva (mm)</th>
                                 <th class="num">Vento (km/h)</th>
                                 <th>Classificação clima</th>
@@ -83,7 +86,7 @@
                             </tr>
                         </thead>
                         <tbody id="corpo-tabela">
-                            <tr><td colspan="10" class="vazio">Carregando...</td></tr>
+                            <tr><td colspan="11" class="vazio">Carregando...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -159,7 +162,7 @@
             corpo.innerHTML = "";
 
             if (talhoes.length === 0) {
-                corpo.innerHTML = `<tr><td colspan="10" class="vazio">Nenhum talhão encontrado.</td></tr>`;
+                corpo.innerHTML = `<tr><td colspan="11" class="vazio">Nenhum talhão encontrado.</td></tr>`;
                 return;
             }
 
@@ -179,6 +182,7 @@
                     <td class="num">${t.dose_aplicada}</td>
                     <td class="num">${desvioFormatado}</td>
                     <td><span class="selo ${classeStatus}">${t.status_aplicacao}</span></td>
+                    <td class="motivo">${t.motivo_desvio}</td>
                     <td class="num">${chuva}</td>
                     <td class="num">${vento}</td>
                     <td><span class="selo ${classe}">${t.classificacao}</span></td>

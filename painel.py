@@ -3,6 +3,7 @@ from dados_clima import CLIMA_HISTORICO
 from usuarios import fazer_login, filtrar_dados_por_permissao, USUARIOS
 from classificacao_climatica import classificar_dia
 from comparacao import comparar_aplicacao
+from motivo_clima import motivo_provavel
 
 
 TEXTO_STATUS_EXIBICAO = {
@@ -32,6 +33,12 @@ def montar_painel(usuario, senha):
         comparacao = comparar_aplicacao(registro["dose_prescrita"], registro["dose_aplicada"])
         status_exibicao = TEXTO_STATUS_EXIBICAO.get(comparacao["status"], comparacao["status"])
 
+        # Liga o status do desvio de dose ao clima real do dia: se o desvio
+        # fugiu do esperado, verifica se houve chuva ou vento relevantes
+        # naquela data e cita isso como fator adicional, usando o mesmo
+        # histórico de clima (dados_clima.py) que alimenta a classificação.
+        motivo_desvio = motivo_provavel(registro["data"], comparacao["status"])
+
         talhoes_com_resultado.append({
             "talhao": registro["talhao"],
             "produtor": registro["produtor"],
@@ -40,6 +47,7 @@ def montar_painel(usuario, senha):
             "dose_aplicada": registro["dose_aplicada"],
             "desvio_pct": comparacao["desvio_pct"],
             "status_aplicacao": status_exibicao,
+            "motivo_desvio": motivo_desvio["texto"],
             "chuva_mm": clima_do_dia["chuva_mm"] if clima_do_dia else None,
             "vento_kmh": clima_do_dia["vento_kmh"] if clima_do_dia else None,
             "classificacao": resultado["classificacao"],
